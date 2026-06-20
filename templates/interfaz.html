@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Servidor de Conteo IA</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+        background: #f4f4f4;
+      }
+      .contenedor {
+        display: flex;
+        gap: 20px;
+      }
+      .columna {
+        flex: 1;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+      }
+      .item-video {
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .btn-procesar {
+        background: #28a745;
+        color: white;
+        text-decoration: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 5px;
+      }
+      .btn-procesar:hover {
+        background: #218838;
+      }
+      pre {
+        background: #eee;
+        padding: 10px;
+        font-size: 0.85em;
+      }
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      form {
+        margin-bottom: 20px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Centro de Control de Conteo (YOLOv8)</h1>
+
+    <form action="/subir" method="post" enctype="multipart/form-data">
+      <label><b>Subir nuevo video para analizar:</b></label>
+      <input type="file" name="archivo" accept=".mp4" />
+      <input type="submit" value="Subir Video" />
+    </form>
+
+    <div class="contenedor">
+      <div class="columna">
+        <h2>📂 Videos Pendientes</h2>
+        {% for video in originales %}
+        <div class="item-video">
+          <strong>{{ video }}</strong><br />
+          <video controls>
+            <source
+              src="{{ url_for('static', filename='videos/' + video) }}"
+              type="video/mp4"
+            />
+          </video>
+          <br />
+          <a href="/procesar/{{ video }}" class="btn-procesar"
+            >⚙️ Procesar con IA</a
+          >
+        </div>
+        {% else %}
+        <p>No hay videos pendientes. Sube uno arriba.</p>
+        {% endfor %}
+      </div>
+
+      <div class="columna">
+        <h2>✅ Resultados Analizados</h2>
+        {% for item in procesados %}
+        <div class="item-video" style="border-left: 5px solid #28a745">
+          <strong>{{ item.nombre }}</strong><br />
+          <video controls>
+            <source
+              src="{{ url_for('static', filename='videos/' + item.nombre) }}"
+              type="video/mp4"
+            />
+          </video>
+          <br />
+          <b>Reporte Generado:</b>
+          <pre>{{ item.reporte }}</pre>
+        </div>
+        {% else %}
+        <p>Aún no has procesado ningún video.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
