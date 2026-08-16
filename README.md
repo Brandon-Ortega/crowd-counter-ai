@@ -312,7 +312,7 @@ Para reportar problemas, sugerencias o preguntas:
 
 ## 👨‍💻 Autor
 
-**Desarrollador**: [Tu Nombre]  
+**Desarrollador**: [Brandon Ortega]  
 **Año**: 2024  
 **Versión**: 1.0.0
 
