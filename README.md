@@ -313,7 +313,7 @@ Para reportar problemas, sugerencias o preguntas:
 ## 👨‍💻 Autor
 
 **Desarrollador**: [Brandon Ortega]  
-**Año**: 2024  
+**Año**: 2025  
 **Versión**: 1.0.0
 
 ---
